@@ -1,0 +1,55 @@
+Date : 2025-08-05 03:13:05
+Directory : /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv
+Total : 22 files,  1134 codes, 289 comments, 264 blanks, all 1687 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| C++        |         18 |        984 |        279 |        235 |      1,498 |
+| HTML       |          2 |         86 |          0 |          9 |         95 |
+| Makefile   |          1 |         35 |          3 |         13 |         51 |
+| Properties |          1 |         29 |          7 |          7 |         43 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                     |         22 |      1,134 |        289 |        264 |      1,687 |
+| . (Files)                                                                             |          2 |         64 |         10 |         20 |         94 |
+| include                                                                               |          8 |        198 |         78 |         59 |        335 |
+| src                                                                                   |         10 |        786 |        201 |        176 |      1,163 |
+| src (Files)                                                                           |          4 |        301 |         90 |         79 |        470 |
+| src/Definitions                                                                       |          6 |        485 |        111 |         97 |        693 |
+| www                                                                                   |          2 |         86 |          0 |          9 |         95 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                              | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/Makefile                         | Makefile   |         35 |          3 |         13 |         51 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/default.conf                     | Properties |         29 |          7 |          7 |         43 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Client.hpp               | C++        |         24 |         11 |          7 |         42 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Config.hpp               | C++        |         16 |         11 |          4 |         31 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/ConfigParser.hpp         | C++        |         35 |         11 |          9 |         55 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Location.hpp             | C++        |         29 |         11 |          9 |         49 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Request.hpp              | C++        |         28 |          0 |          5 |         33 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Server.hpp               | C++        |         39 |         11 |         11 |         61 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Signal.hpp               | C++        |         13 |         11 |          8 |         32 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Webserv.hpp              | C++        |         14 |         12 |          6 |         32 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/ConfigTokens.cpp             | C++        |        125 |         12 |         33 |        170 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Client.cpp       | C++        |         76 |         11 |         13 |        100 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/ConfigParser.cpp | C++        |        107 |         37 |         19 |        163 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Location.cpp     | C++        |         49 |         30 |         11 |         90 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Request.cpp      | C++        |         88 |         11 |         17 |        116 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Server.cpp       | C++        |        148 |         11 |         30 |        189 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Signal.cpp       | C++        |         17 |         11 |          7 |         35 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/LocationTokens.cpp           | C++        |         66 |         11 |         26 |        103 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Utils.cpp                    | C++        |         75 |         56 |         11 |        142 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/main.cpp                     | C++        |         35 |         11 |          9 |         55 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/www/index.html                   | HTML       |         58 |          0 |          6 |         64 |
+| /nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/www/thankyou.html                | HTML       |         28 |          0 |          3 |         31 |
+| Total                                                                                 |            |      1,134 |        289 |        264 |      1,687 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

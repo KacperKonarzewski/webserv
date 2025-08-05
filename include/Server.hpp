@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 02:19:40 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 04:16:58 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ private:
 	std::map<int, Client> clients;
 	
 	const Location		*find_location(std::string uri);
-	std::string			create_response(std::string target);
+	std::string			create_response(std::string& target);
+	std::string			create_error(int error, const std::string& page, std::string message) const;
 public:
 	~Server();
 	Server(const Config& conf);

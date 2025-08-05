@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 03:06:36 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:54:08 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,16 @@ const Location *Server::find_location(std::string uri)
 	return (NULL);
 }
 
-std::string	Server::create_response(std::string target)
+std::string	Server::create_error(int error, const std::string& page, std::string message) const
 {
-	std::cout << "-----------------" << target << std::endl;
-	std::ifstream index(target.c_str());
+	std::ifstream index(page.c_str());
     std::string html;
 	std::stringstream buffer;
 	std::ostringstream headers;
 	
 	buffer << index.rdbuf();
 	html = buffer.str();
-    headers << "HTTP/1.1 200 OK\r\n"
+    headers << "HTTP/1.1 " << error << " " << message << "\r\n"
             << "Content-Type: text/html\r\n"
             << "Content-Length: " << html.size() << "\r\n"
             << "Connection: close\r\n\r\n"
@@ -111,8 +110,10 @@ void Server::send_response(Client *client)
 	trim_string(root, "/");
 	target = root + "/" + file;
 
-	response = create_response(target);
-
+	if (access(target.c_str(), F_OK) == 0)
+		response = create_response(target);
+	else
+		response = create_error(404, conf.error_pages.at(404), "Not Found");
     send(client->get_client_fd(), response.c_str(), response.size(), 0);
 	close(client->get_client_fd());
 	epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, client->get_client_fd(), NULL);

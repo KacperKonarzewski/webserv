@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:09:30 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 03:00:36 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:58:08 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void Request::parse_body(std::string& line)
 	while (i < body_pairs.size())
 	{
 		pair = ft_split(body_pairs[i], "=");
-		tokens[pair[0]] = pair[1];
+		body[pair[0]] = pair[1];
 		i++;
 	}
 }
