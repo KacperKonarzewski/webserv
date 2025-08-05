@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 16:54:08 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/06 00:18:58 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Webserv.hpp"
 #include "Signal.hpp"
 #include "Request.hpp"
+#include "Response.hpp"
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -35,10 +36,10 @@ Server::Server(const Config& conf) : conf(conf)
 	if (server_fd == -1)
 		error("socket error.");
 	int opt = 1;
-
+	
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(conf.port);
+	address.sin_port = htons(conf.listen_addresses.back().port);
 	
 	setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
@@ -46,7 +47,7 @@ Server::Server(const Config& conf) : conf(conf)
 	if (listen(server_fd, 10) < 0)
 		error("listen error.");
 	addrlen = sizeof(address);
-	std::cout << "Serwer działa na http://localhost:" << conf.port << std::endl;
+	std::cout << "Serwer działa na http://localhost:" << conf.listen_addresses.back().port << std::endl;
 }
 
 void Server::init_epoll()
@@ -61,60 +62,11 @@ void Server::init_epoll()
 		return error("epoll_ctl error.");
 }
 
-const Location *Server::find_location(std::string uri)
-{
-	for (size_t i = 0; i < conf.locations.size(); i++)
-		if (conf.locations[i].get_location_path() == uri)
-			return &(conf.locations[i]);
-	
-	for (size_t i = 0; i < conf.locations.size(); i++)
-        if (conf.locations[i].get_location_path() == "/")
-            return &(conf.locations[i]);
-			
-	return (NULL);
-}
-
-std::string	Server::create_error(int error, const std::string& page, std::string message) const
-{
-	std::ifstream index(page.c_str());
-    std::string html;
-	std::stringstream buffer;
-	std::ostringstream headers;
-	
-	buffer << index.rdbuf();
-	html = buffer.str();
-    headers << "HTTP/1.1 " << error << " " << message << "\r\n"
-            << "Content-Type: text/html\r\n"
-            << "Content-Length: " << html.size() << "\r\n"
-            << "Connection: close\r\n\r\n"
-            << html;
-
-	index.close();
-	return (headers.str());
-}
-
 void Server::send_response(Client *client)
 {
-	std::string target;
-	std::string file;
-	std::string response;
-	Request *request = client->get_request();
-	std::map<std::string, std::string> tokens = request->get_tokens();
+	Response response(client, conf);
 
-	const Location *location = find_location(tokens["request_uri"]);
-
-	std::string root = location->get_directive()["root"];
-
-	file = (is_directory(tokens["request_uri"]))? location->get_directive()["index"] : tokens["request_uri"];
-	trim_string(file, "/");
-	trim_string(root, "/");
-	target = root + "/" + file;
-
-	if (access(target.c_str(), F_OK) == 0)
-		response = create_response(target);
-	else
-		response = create_error(404, conf.error_pages.at(404), "Not Found");
-    send(client->get_client_fd(), response.c_str(), response.size(), 0);
+    send(client->get_client_fd(), response.get_response().c_str(), response.get_response().size(), 0);
 	close(client->get_client_fd());
 	epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, client->get_client_fd(), NULL);
 }

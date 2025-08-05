@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigTokens.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:15 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 21:42:50 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/06 00:13:31 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Webserv.hpp"
 #include "Location.hpp" 
 #include <sstream>
+#include <iostream>
 
 void ConfigParser::read_listen(int line_num)
 {
@@ -102,7 +103,6 @@ void ConfigParser::read_root(int line_num)
 	std::string	root_value;
 
 	remove_semicolon(line_num, root_value, "root");
-	trim_whitespace(root_value);
 
 	if (block_num == 2)
 		configs.back().locations.back().add_token("root", root_value);
