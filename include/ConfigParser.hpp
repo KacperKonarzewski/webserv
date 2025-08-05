@@ -6,7 +6,7 @@
 /*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:01 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 16:31:16 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:34:44 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ private:
 	void    read_index(int line_num);
 	void	read_server(int line_num);
 	void 	fill_tokens();
-
+	void	remove_semicolon(int line_num, std::string &value, std::string communicate);
+	
 	size_t		parse_size(const std::string& s);
 	void		tokenize(const std::string& line);
 	__attribute__((noreturn)) void	parser_error(const std::string message, int line_num);

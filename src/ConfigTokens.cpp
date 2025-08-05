@@ -6,7 +6,7 @@
 /*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:15 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 20:56:45 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:42:50 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,10 @@
 void ConfigParser::read_listen(int line_num)
 {
 	std::string 	listen_value;
-	size_t			semicolon_pos = remainder.find(';');
 	size_t			colon_pos;
 	ListenAddress	address;
 	
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'listen' directive.", line_num);
-
-	listen_value = remainder.substr(0, semicolon_pos);
-	trim_whitespace(listen_value);
+	remove_semicolon(line_num, listen_value, "listen");
 	
 	colon_pos = listen_value.find(':');
 
@@ -40,30 +33,16 @@ void ConfigParser::read_listen(int line_num)
 void ConfigParser::read_server_name(int line_num)
 {
 	std::string	trimmed_name;
-	size_t		semicolon_pos = remainder.find(';');
 
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'server_name' directive.", line_num);
-
-	trimmed_name = remainder.substr(0, semicolon_pos);
-	trim_whitespace(trimmed_name);
+	remove_semicolon(line_num, trimmed_name, "server_name");
 	this->configs.back().server_names = ft_split(trimmed_name, " ");
 }
 
 void ConfigParser::read_client_max_body_size(int line_num)
 {
 	std::string	size_str;
-	size_t		semicolon_pos = remainder.find(';');
 
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'client_max_body_size' directive.", line_num);
-
-	size_str = remainder.substr(0, semicolon_pos);
-	trim_whitespace(size_str);
+	remove_semicolon(line_num, size_str, "client_max_body_size");
 	configs.back().client_max_body_size = parse_size(size_str);
 }
 
@@ -73,16 +52,9 @@ void ConfigParser::read_error_page(int line_num)
 	std::string	error_code_str;
 	std::string	error_page_path;
 	size_t		space_pos;
-	size_t		semicolon_pos = remainder.find(';');
 	int			error_code;
 
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'error_page' directive.", line_num);
-
-	error_page_str = remainder.substr(0, semicolon_pos);
-	trim_whitespace(error_page_str);
+	remove_semicolon(line_num, error_page_str, "error_page");
 	space_pos = error_page_str.find(' ');
 	if (space_pos == std::string::npos)
 		parser_error("Invalid 'error_page' format. Expected 'error_page CODE PATH;'", line_num);
@@ -128,14 +100,8 @@ void ConfigParser::read_server(int line_num)
 void ConfigParser::read_root(int line_num)
 {
 	std::string	root_value;
-	size_t		semicolon_pos = remainder.find(';');
 
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'root' directive.", line_num);
-
-	root_value = remainder.substr(0, semicolon_pos);
+	remove_semicolon(line_num, root_value, "root");
 	trim_whitespace(root_value);
 
 	if (block_num == 2)
@@ -145,16 +111,8 @@ void ConfigParser::read_root(int line_num)
 void ConfigParser::read_index(int line_num)
 {
 	std::string	index_value;
-	size_t		semicolon_pos = remainder.find(';');
 
-	if (block_num == 0)
-		parser_error("Not inside server block.", line_num);
-	if (semicolon_pos == std::string::npos)
-		parser_error("Missing ';' after 'index' directive.", line_num);
-
-	index_value = remainder.substr(0, semicolon_pos);
-	trim_whitespace(index_value);
-
+	remove_semicolon(line_num, index_value, "index");
 	if (block_num == 2)
 		configs.back().locations.back().add_token("index", index_value);
 }

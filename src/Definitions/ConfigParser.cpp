@@ -6,7 +6,7 @@
 /*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:11 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 16:31:09 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:35:39 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,19 @@ ConfigParser::ConfigParser(const std::string& filepath)
 const std::vector<Config>&	ConfigParser::get_configs() const
 {
 	return configs;
+}
+
+void	ConfigParser::remove_semicolon(int line_num, std::string &value, std::string communicate)
+{
+	size_t	semicolon_pos = remainder.find(';');
+	
+	if (block_num == 0)
+		parser_error("Not inside server block.", line_num);
+	if (semicolon_pos == std::string::npos)
+		parser_error(std::string("Missing ';' after '") + communicate + "' directive.", line_num);
+
+	value = remainder.substr(0, semicolon_pos);
+	trim_whitespace(value);
 }
 
 //const std::string& ConfigParser::get_host() const
