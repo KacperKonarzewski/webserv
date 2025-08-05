@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 04:02:09 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:25:48 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 01:38:55 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ void	Location::fill_tokens()
 	tokens["upload_dir"] = &Location::read_upload_dir;
 	tokens["cgi_extension"] = &Location::read_cgi_extension;
 	tokens["directory_listing"] = &Location::read_directory_listing;
+}
+
+std::string	Location::get_location_path() const
+{
+	return (location_path);
+}
+
+std::map<std::string, std::string>	Location::get_directive() const
+{
+	return (directive);
 }
 
 Location::Location(std::string& location_path)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Request.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/05 01:09:30 by kkonarze          #+#    #+#             */
+/*   Updated: 2025/08/05 03:00:36 by kkonarze         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/Request.hpp"
 
 void Request::parse_request()
@@ -17,12 +29,19 @@ void Request::parse_request()
 			continue ;
 		}
 		process_line(line, line_num, body_flag);
-	}	
+	}
+	if (tokens["method"] == "GET" && tokens["data"] != "")
+		parse_body(tokens["data"]);
 }
 
 Request::Request()
 {
 
+}
+
+std::map<std::string, std::string>	Request::get_tokens()
+{
+	return (tokens);
 }
 
 Request::Request(int client_fd)
@@ -48,11 +67,23 @@ void Request::process_line(std::string& line, int line_num, bool body_flag)
 
 void Request::parse_requestline(std::string& line)
 {
-	std::vector<std::string> request_line;
+	std::vector<std::string>	request_line;
+	size_t						first_space;
+	std::string					file;
+	std::string					data;
 
 	request_line = ft_split(line, " ");
 	tokens["method"] = request_line[0];
-	tokens["request_uri"] = request_line[1];
+	if (tokens["method"] == "GET")
+	{
+		first_space = request_line[1].find_first_of("?");
+		file = (first_space == std::string::npos)? request_line[1] : request_line[1].substr(0, first_space);
+		data = (first_space == std::string::npos)? "" : request_line[1].substr(first_space);
+		tokens["request_uri"] = file;
+		tokens["data"] = data;
+	}
+	else
+		tokens["request_uri"] = request_line[1];
 	tokens["HTTP_version"] = request_line[2];
 }
 

@@ -28,5 +28,6 @@ class Request
 		Request(int client_fd);
 		~Request();
 
+		std::map<std::string, std::string>	get_tokens();
 		void parse_request();
 };

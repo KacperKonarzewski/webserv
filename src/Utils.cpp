@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:39 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:25:19 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:42:05 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@ void trim_whitespace(std::string &s)
 {
 	size_t start = s.find_first_not_of(" \t\n\r\f\v");
 	size_t end = s.find_last_not_of(" \t\n\r\f\v");
+	if (std::string::npos == start)
+		return s.clear();
+	s = s.substr(start, (end - start + 1));
+}
+
+/**
+ * Trim charset from a line.
+ * 
+ * @param s string reference to a line.
+ * @param charset charset which is gonna get trimmed
+ */
+void trim_string(std::string &s, std::string charset)
+{
+	size_t start = s.find_first_not_of(charset);
+	size_t end = s.find_last_not_of(charset);
 	if (std::string::npos == start)
 		return s.clear();
 	s = s.substr(start, (end - start + 1));
@@ -91,27 +106,15 @@ int make_socket_non_blocking(int fd)
 }
 
 /**
- * Makes response for the server.
+ * Checks if a string is directory.
  * 
- * @return Returns response as a string.
+ * @return Returns true if it is directory, false otherwise.
  */
-std::string make_response()
+bool is_directory(std::string& str)
 {	
-	std::ifstream index("./static/index.html");
-    std::string html;
-	std::stringstream buffer;
-	std::ostringstream headers;
-	
-	buffer << index.rdbuf();
-	html = buffer.str();
-    headers << "HTTP/1.1 200 OK\r\n"
-            << "Content-Type: text/html\r\n"
-            << "Content-Length: " << html.size() << "\r\n"
-            << "Connection: close\r\n\r\n"
-            << html;
-
-	index.close();
-    return headers.str();
+	if (!str.empty() && str[str.size() - 1] == '/')
+		return (true);
+	return (false);
 }
 
 /**

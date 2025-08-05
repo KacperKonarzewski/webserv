@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 02:36:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:13 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 01:23:13 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ public:
 	void	add_token(std::string token, std::string& value);
 	void	find_token(int line_num, std::string& token, std::string& reminder);
 	
+	std::string							get_location_path() const;
+	std::map<std::string, std::string>	get_directive() const;
+
 	Location();
 	Location(std::string& location_path);
 	~Location();

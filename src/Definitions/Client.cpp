@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:16:44 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 01:06:16 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 01:43:49 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,6 @@ void Client::read_request()
 	request->parse_request();
 }
 
-void Client::send_response(Server &serv)
-{
-	std::string response = make_response();
-
-	send(client_fd, response.c_str(), response.size(), 0);
-	close(client_fd);
-	epoll_ctl(serv.get_epoll_fd(), EPOLL_CTL_DEL, client_fd, NULL);
-}
-
 int	Client::get_client_fd()
 {
 	return (client_fd);
@@ -70,6 +61,11 @@ int	Client::get_client_fd()
 int	Client::get_blocking_flag()
 {
 	return (blocking_flag);
+}
+
+Request	*Client::get_request()
+{
+	return (request);
 }
 
 Client::Client(Server &serv)

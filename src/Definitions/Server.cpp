@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:33:22 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:06:36 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@
 #include "Request.hpp"
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <unistd.h>
 #include <cstdio>
 #include <arpa/inet.h>
 #include <sys/epoll.h>
 #include <errno.h>
-
+#include <fstream>
 
 Server::~Server()
 {
-	// int opt = 1;
-	
-	// setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	close(server_fd);
 }
 
@@ -63,6 +61,63 @@ void Server::init_epoll()
 		return error("epoll_ctl error.");
 }
 
+const Location *Server::find_location(std::string uri)
+{
+	for (size_t i = 0; i < conf.locations.size(); i++)
+		if (conf.locations[i].get_location_path() == uri)
+			return &(conf.locations[i]);
+	
+	for (size_t i = 0; i < conf.locations.size(); i++)
+        if (conf.locations[i].get_location_path() == "/")
+            return &(conf.locations[i]);
+			
+	return (NULL);
+}
+
+std::string	Server::create_response(std::string target)
+{
+	std::cout << "-----------------" << target << std::endl;
+	std::ifstream index(target.c_str());
+    std::string html;
+	std::stringstream buffer;
+	std::ostringstream headers;
+	
+	buffer << index.rdbuf();
+	html = buffer.str();
+    headers << "HTTP/1.1 200 OK\r\n"
+            << "Content-Type: text/html\r\n"
+            << "Content-Length: " << html.size() << "\r\n"
+            << "Connection: close\r\n\r\n"
+            << html;
+
+	index.close();
+	return (headers.str());
+}
+
+void Server::send_response(Client *client)
+{
+	std::string target;
+	std::string file;
+	std::string response;
+	Request *request = client->get_request();
+	std::map<std::string, std::string> tokens = request->get_tokens();
+
+	const Location *location = find_location(tokens["request_uri"]);
+
+	std::string root = location->get_directive()["root"];
+
+	file = (is_directory(tokens["request_uri"]))? location->get_directive()["index"] : tokens["request_uri"];
+	trim_string(file, "/");
+	trim_string(root, "/");
+	target = root + "/" + file;
+
+	response = create_response(target);
+
+    send(client->get_client_fd(), response.c_str(), response.size(), 0);
+	close(client->get_client_fd());
+	epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, client->get_client_fd(), NULL);
+}
+
 void Server::event_loop()
 {
 	Client *client;
@@ -82,7 +137,7 @@ void Server::event_loop()
 				if (client == NULL)
 					continue ;
 				client->read_request();
-				client->send_response(*this);
+				send_response(client);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:05 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:25:20 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:40:56 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void						remove_comment(std::string& s);
 int							string_to_int(const std::string& s);
 int							make_socket_non_blocking(int fd);
 std::vector<std::string>	ft_split(std::string str, std::string delimiter);
-
-// hardcode
-std::string make_response();
+bool						is_directory(std::string& str);
+void						trim_string(std::string &s, std::string charset);
 
 #endif

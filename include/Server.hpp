@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:33:27 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:19:40 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ private:
 
 	std::map<int, Client> clients;
 	
+	const Location		*find_location(std::string uri);
+	std::string			create_response(std::string target);
 public:
 	~Server();
 	Server(const Config& conf);
@@ -45,6 +47,7 @@ public:
 
 	void		init_epoll();
 	void		event_loop();
+	void		send_response(Client *client);
 
 	int						get_server();
 	int						get_epoll_fd();
