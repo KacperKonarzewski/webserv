@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:01 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/04 17:46:34 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:31:16 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 class ConfigParser
 {
 private:
-	Config		conf;
+	std::vector<Config>	configs;
 
 	int			block_num;
 	std::string	token;
@@ -48,7 +48,7 @@ public:
 	ConfigParser();
 	~ConfigParser();
 
-	const	Config&		get_config() const;
+	const	std::vector<Config>&		get_configs() const;
 };
 
 

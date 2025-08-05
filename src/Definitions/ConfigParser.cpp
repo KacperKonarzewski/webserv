@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:11 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/04 17:33:21 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:31:09 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ ConfigParser::ConfigParser(const std::string& filepath)
 		else if (tokens.count(token))
 			(this->*tokens[token])(line_num);
 		else if (block_num == 2)
-			conf.locations.back().find_token(line_num, token, remainder);
+			configs.back().locations.back().find_token(line_num, token, remainder);
 		else
 			parser_error("Unknown directive '" + token + "' inside server block.", line_num);
 	}
@@ -138,9 +138,9 @@ ConfigParser::ConfigParser(const std::string& filepath)
 		parser_error(std::string("Unexpected EOF. Missing '}' for ") + ((block_num == 1) ? "server" : "location") + " block.");
 }
 
-const Config&	ConfigParser::get_config() const
+const std::vector<Config>&	ConfigParser::get_configs() const
 {
-	return conf;
+	return configs;
 }
 
 //const std::string& ConfigParser::get_host() const
