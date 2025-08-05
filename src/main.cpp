@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:19 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:33:39 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:57:02 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 		
         setup_signals();
 
-		Server *server = new Server(config.get_config());
+		Server *server = new Server(config.get_configs()[0]);
 		server->init_epoll();
 		server->event_loop();
 		delete server;

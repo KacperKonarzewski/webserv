@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigTokens.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:15 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/07/29 05:26:32 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:56:45 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 
 void ConfigParser::read_listen(int line_num)
 {
-	std::string listen_value;
-	size_t		semicolon_pos = remainder.find(';');
-	size_t		colon_pos;
-
+	std::string 	listen_value;
+	size_t			semicolon_pos = remainder.find(';');
+	size_t			colon_pos;
+	ListenAddress	address;
+	
 	if (block_num == 0)
 		parser_error("Not inside server block.", line_num);
 	if (semicolon_pos == std::string::npos)
@@ -28,12 +29,12 @@ void ConfigParser::read_listen(int line_num)
 
 	listen_value = remainder.substr(0, semicolon_pos);
 	trim_whitespace(listen_value);
-
+	
 	colon_pos = listen_value.find(':');
 
-	conf.host = (colon_pos == std::string::npos)? "0.0.0.0" : listen_value.substr(0, colon_pos);
-	conf.port = string_to_int((colon_pos == std::string::npos)? listen_value : listen_value.substr(colon_pos + 1));
-	//listen_configs.push_back(config);
+	address.host = (colon_pos == std::string::npos)? "0.0.0.0" : listen_value.substr(0, colon_pos);
+	address.port = string_to_int((colon_pos == std::string::npos)? listen_value : listen_value.substr(colon_pos + 1));
+	configs.back().listen_addresses.push_back(address);
 }
 
 void ConfigParser::read_server_name(int line_num)
@@ -48,7 +49,7 @@ void ConfigParser::read_server_name(int line_num)
 
 	trimmed_name = remainder.substr(0, semicolon_pos);
 	trim_whitespace(trimmed_name);
-	this->conf.server_name = trimmed_name;
+	this->configs.back().server_names = ft_split(trimmed_name, " ");
 }
 
 void ConfigParser::read_client_max_body_size(int line_num)
@@ -63,7 +64,7 @@ void ConfigParser::read_client_max_body_size(int line_num)
 
 	size_str = remainder.substr(0, semicolon_pos);
 	trim_whitespace(size_str);
-	conf.client_max_body_size = parse_size(size_str);
+	configs.back().client_max_body_size = parse_size(size_str);
 }
 
 void ConfigParser::read_error_page(int line_num)
@@ -92,7 +93,7 @@ void ConfigParser::read_error_page(int line_num)
 	trim_whitespace(error_page_path);
 
 	error_code = string_to_int(error_code_str);
-	conf.error_pages[error_code] = error_page_path;
+	configs.back().error_pages[error_code] = error_page_path;
 }
 
 void ConfigParser::read_location(int line_num)
@@ -108,16 +109,19 @@ void ConfigParser::read_location(int line_num)
     location_path = remainder.substr(0, open_brace_pos);
     trim_whitespace(location_path);
 
-	conf.locations.push_back(Location(location_path));
+	configs.back().locations.push_back(Location(location_path));
     block_num++;
 }
 
 void ConfigParser::read_server(int line_num)
 {
+	Config c;
+	
 	if (block_num != 0)
 		parser_error("Server block inside of server block on line: ", line_num);
 	if (remainder != "{")
 		parser_error("Expected 'server {'", line_num);
+	configs.push_back(c);
 	block_num++;
 }
 
@@ -135,7 +139,7 @@ void ConfigParser::read_root(int line_num)
 	trim_whitespace(root_value);
 
 	if (block_num == 2)
-		conf.locations.back().add_token("root", root_value);
+		configs.back().locations.back().add_token("root", root_value);
 }
 
 void ConfigParser::read_index(int line_num)
@@ -152,7 +156,7 @@ void ConfigParser::read_index(int line_num)
 	trim_whitespace(index_value);
 
 	if (block_num == 2)
-		conf.locations.back().add_token("index", index_value);
+		configs.back().locations.back().add_token("index", index_value);
 }
 
 void ConfigParser::fill_tokens()
