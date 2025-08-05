@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:22:07 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/06 00:58:14 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,30 @@ void	Response::create_response(std::string& target)
 
 void	Response::create_error(std::map<int, std::string> error, int code, std::string message)
 {
-	std::ifstream index(error.at(code).c_str());
     std::string html;
 	std::stringstream buffer;
 	std::ostringstream headers;
 	
-	buffer << index.rdbuf();
+	if (error.count(code))
+	{
+		std::ifstream index(error.at(code).c_str());
+		buffer << index.rdbuf();
+		html = buffer.str();
+		index.close();
+	}
+	else
+	{
+		buffer << "<html><head><title>" << code << " " << message << "</title></head>"
+			   << "<body><h1>" << code << " " << message << "</h1>"
+			   << "<p>" << message << "</p></body></html>";
+	}
 	html = buffer.str();
-    headers << "HTTP/1.1 " << code << " " << message << "\r\n"
+	headers << "HTTP/1.1 " << code << " " << message << "\r\n"
             << "Content-Type: text/html\r\n"
             << "Content-Length: " << html.size() << "\r\n"
             << "Connection: close\r\n\r\n"
             << html;
-
-	index.close();
+	
 	res = headers.str();
 }
 
