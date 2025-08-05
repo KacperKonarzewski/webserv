@@ -18,6 +18,7 @@ class Request
 	private:
 		char buffer[2048];
 		std::map<std::string, std::string> tokens;
+		std::map<std::string, std::string> body;
 
 		void process_line(std::string& line, int line_num, bool body_flag);
 		void parse_requestline(std::string& line);

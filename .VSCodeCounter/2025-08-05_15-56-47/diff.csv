@@ -1,0 +1,6 @@
+"filename", "language", "HTML", "C++", "comment", "blank", "total"
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/errors/404.html", "HTML", 38, 0, 0, 0, 38
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Request.hpp", "C++", 0, 1, 0, 0, 1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Server.hpp", "C++", 0, 1, 0, 0, 1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Server.cpp", "C++", 0, 18, 0, 2, 20
+"Total", "-", 38, 20, 0, 2, 60
