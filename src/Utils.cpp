@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:39 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 16:41:44 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/06 01:33:52 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,19 @@ std::vector<std::string>	ft_split(std::string str, std::string delimiter)
 		result.push_back(sub);
 	}
 	return (result);
+}
+
+/**
+ * Finds extension of a file.
+ * 
+ * @param path File path.
+ * @return Returns extension of a file or empty string if there is none.
+ */
+std::string	get_file_extension(const std::string &path)
+{
+	size_t dot = path.rfind('.');
+	
+	if (dot == std::string::npos)
+		return "";
+	return path.substr(dot);
 }

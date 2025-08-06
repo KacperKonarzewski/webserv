@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:58:14 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/06 01:45:09 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,32 @@ const Location *Response::find_location(std::string uri, const Config &conf)
 	return (NULL);
 }
 
+void	Response::init_mime_types()
+{
+	types[".html"] = "text/html";
+	types[".htm"] = "text/html";
+	types[".css"] = "text/css";
+	types[".js"] = "application/javascript";
+	types[".json"] = "application/json";
+	types[".png"] = "image/png";
+	types[".jpg"] = "image/jpeg";
+	types[".jpeg"] = "image/jpeg";
+	types[".svg"] = "image/svg+xml";
+	types[".ico"] = "image/x-icon";
+	types[".pdf"] = "application/pdf";
+	types[".txt"] = "text/plain";
+}
+
+std::string Response::get_mime_type(const std::string &path)
+{
+	std::string ext = get_file_extension(path);
+	
+	std::map<std::string, std::string>::const_iterator it = types.find(ext);
+	if (it != types.end())
+    	return it->second;
+	return "application/octet-stream";
+}
+
 void	Response::create_response(std::string& target)
 {
 	std::ifstream index(target.c_str());
@@ -36,7 +62,7 @@ void	Response::create_response(std::string& target)
 	buffer << index.rdbuf();
 	html = buffer.str();
     headers << "HTTP/1.1 200 OK\r\n"
-            << "Content-Type: text/html\r\n"
+            << "Content-Type: " << get_mime_type(target) << "\r\n"
             << "Content-Length: " << html.size() << "\r\n"
             << "Connection: close\r\n\r\n"
             << html;
@@ -55,7 +81,6 @@ void	Response::create_error(std::map<int, std::string> error, int code, std::str
 	{
 		std::ifstream index(error.at(code).c_str());
 		buffer << index.rdbuf();
-		html = buffer.str();
 		index.close();
 	}
 	else
@@ -88,8 +113,9 @@ Response::Response(Client *client, const Config &conf)
 	std::map<std::string, std::string> tokens = request->get_tokens();
 
 	const Location *location = find_location(tokens["request_uri"], conf);
-
 	std::string root = location->get_directive()["root"];
+
+	init_mime_types();
 
 	file = (is_directory(tokens["request_uri"]))? location->get_directive()["index"] : tokens["request_uri"];
 	trim_string(file, "/");
