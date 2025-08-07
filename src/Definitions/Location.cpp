@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Location.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 04:02:09 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 01:38:55 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:30:33 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,22 @@ Location::Location(std::string& location_path)
 {
 	fill_tokens();
 	this->location_path = location_path;
+}
+
+void	Location::extract_value(int line_num, std::string &reminder, std::string &value, std::string key)
+{
+	size_t		semicolon_pos = reminder.find(';');
+
+	if (semicolon_pos == std::string::npos)
+		parser_error(("Missing ';' after '") + key + "' directive.", line_num);
+
+	value = reminder.substr(0, semicolon_pos);
+	trim_whitespace(value);
+
+	if (value.empty())
+		parser_error(("Empty '") + key + "' directive.", line_num);
+
+	directive[key] = value;
 }
 
 Location::Location()

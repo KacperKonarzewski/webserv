@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Location.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 02:36:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 01:23:13 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:30:43 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ private:
 	void    read_directory_listing(int line_num, std::string& reminder);
 	void    read_allowed_methods(int line_num, std::string& reminder);
 	void    validate_methods(int line_num, std::string& reminder);
+	void	extract_value(int line_num, std::string &reminder, std::string &value, std::string key);
 
 	void	fill_tokens();
 	__attribute__((noreturn)) void	parser_error(const std::string message, int line_num);
