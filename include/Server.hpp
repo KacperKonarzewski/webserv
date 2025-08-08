@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:19:48 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:17:54 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ class Client;
 class Server
 {
 private:
-	int					server_fd;
+	std::vector<int>	server_fd;
+	std::vector<struct sockaddr_in>	addresses;
 
 	const Config&		conf;
-	struct sockaddr_in	address;
 	socklen_t			addrlen;
 
 	int					epoll_fd;
@@ -47,9 +47,9 @@ public:
 	void		event_loop();
 	void		send_response(Client *client);
 
-	int						get_server();
+	std::vector<int> &Server::get_server();
 	int						get_epoll_fd();
-	sockaddr_in				&get_address();
+	std::vector<sockaddr_in> &Server::get_addresses();
 	socklen_t				&get_addrlen();
 	epoll_event				&get_info();
 	epoll_event				*get_events();		
