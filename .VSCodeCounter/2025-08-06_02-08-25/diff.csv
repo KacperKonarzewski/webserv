@@ -1,0 +1,16 @@
+"filename", "language", "C++", "Makefile", "HTML", "PostCSS", "comment", "blank", "total"
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/Makefile", "Makefile", 0, 1, 0, 0, 0, 0, 1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Config.hpp", "C++", 3, 0, 0, 0, 0, 1, 4
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/ConfigParser.hpp", "C++", 1, 0, 0, 0, 0, 0, 1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Response.hpp", "C++", 32, 0, 0, 0, 11, 8, 51
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Server.hpp", "C++", -3, 0, 0, 0, 0, 0, -3
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/include/Webserv.hpp", "C++", 1, 0, 0, 0, 0, 0, 1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/ConfigTokens.cpp", "C++", -31, 0, 0, 0, -1, -6, -38
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/ConfigParser.cpp", "C++", 10, 0, 0, 0, 0, 3, 13
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Response.cpp", "C++", 104, 0, 0, 0, 11, 22, 137
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Definitions/Server.cpp", "C++", -55, 0, 0, 0, 0, -12, -67
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/Utils.cpp", "C++", 7, 0, 0, 0, 6, 2, 15
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/src/main.cpp", "C++", -1, 0, 0, 0, 0, 0, -1
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/www/index.html", "HTML", 0, 0, -37, 0, 0, 0, -37
+"/nfs/homes/kkonarze/Portfolio/Core/Project05/webserv/www/style.css", "PostCSS", 0, 0, 0, 36, 0, 0, 36
+"Total", "-", 68, 1, -37, 36, 27, 18, 113

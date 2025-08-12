@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:13:03 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 01:03:40 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:57:40 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include <string>
 #include "Server.hpp"
+#include "Webserv.hpp"
 
 class Server;
 class Request;

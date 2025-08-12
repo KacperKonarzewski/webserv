@@ -6,9 +6,11 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 01:45:09 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:00:16 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "Webserv.hpp"
 
 #include "Response.hpp"
 #include "Request.hpp"

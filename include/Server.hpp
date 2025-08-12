@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/08 20:17:54 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:58:50 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <map>
+#include "Webserv.hpp"
 #include "Client.hpp"
 #include "Config.hpp"
 
@@ -25,8 +23,8 @@ class Client;
 class Server
 {
 private:
-	std::vector<int>	server_fd;
-	std::vector<struct sockaddr_in>	addresses;
+	int					server_fd;
+	struct sockaddr_in	address;
 
 	const Config&		conf;
 	socklen_t			addrlen;
@@ -47,9 +45,9 @@ public:
 	void		event_loop();
 	void		send_response(Client *client);
 
-	std::vector<int> &Server::get_server();
+	int						&get_server();
 	int						get_epoll_fd();
-	std::vector<sockaddr_in> &Server::get_addresses();
+	sockaddr_in				&get_address();
 	socklen_t				&get_addrlen();
 	epoll_event				&get_info();
 	epoll_event				*get_events();		

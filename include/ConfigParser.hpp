@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:01 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 21:48:34 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:58:02 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 #define CONFIGPARSER_HPP
 
 #include "Config.hpp"
-#include <string>
-#include <vector>
-#include <map>
-#include <fstream>
+#include "Webserv.hpp"
 
 class ConfigParser
 {
@@ -34,15 +31,18 @@ private:
 	void 	read_server_name(int line_num);
 	void 	read_client_max_body_size(int line_num);
 	void 	read_error_page(int line_num);
-	void    read_location(int line_num);
-	void    read_root(int line_num);
-	void    read_index(int line_num);
+	void	read_location(int line_num);
+	void	read_root(int line_num);
+	void	read_index(int line_num);
 	void	read_server(int line_num);
-	void 	fill_tokens();
-	void	remove_semicolon(int line_num, std::string &value, std::string communicate);
+	void	read_bracket(int line_num);
+
+	void	fill_tokens();
+	void	tokenize(const std::string& line);
 	
-	size_t		parse_size(const std::string& s);
-	void		tokenize(const std::string& line);
+	void	remove_semicolon(int line_num, std::string &value, std::string communicate);
+	size_t	parse_size(const std::string& s);
+	void	validate_methods(int line_num);
 	__attribute__((noreturn)) void	parser_error(const std::string message, int line_num);
 public:
 	ConfigParser(const std::string& filepath);

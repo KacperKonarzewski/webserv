@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Config.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 05:11:45 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 19:56:04 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:57:51 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 #define CONFIG_HPP
 
 #include "Location.hpp"
-#include <string>
-#include <map>
-#include <vector>
+#include "Webserv.hpp"
 
 struct ListenAddress {
 	std::string host;

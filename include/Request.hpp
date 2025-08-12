@@ -1,17 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Request.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/12 20:58:34 by kkonarze          #+#    #+#             */
+/*   Updated: 2025/08/12 20:58:34 by kkonarze         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include "Server.hpp"
 #include "Webserv.hpp"
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <unistd.h>
-#include <cstdio>
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <cstring>
-#include <vector>
-
 
 class Request
 {

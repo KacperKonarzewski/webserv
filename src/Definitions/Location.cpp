@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Location.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 04:02:09 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/07 11:30:33 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:00:01 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Webserv.hpp"
+
 #include "Location.hpp"
-#include <iostream>
-#include <fstream>
-#include <cstdlib>
 
 /**
  * Finds directive of location and adds it.
@@ -24,10 +23,25 @@
  */
 void Location::find_token(int line_num, std::string& token, std::string& reminder)
 {
-	if (tokens.count(token))
-		(this->*tokens[token])(line_num, reminder);
-	else
-		parser_error("Unknown location directive.", line_num);
+	size_t		semicolon_pos = reminder.find(';');
+	std::string	value;
+
+	if (token != "allowed_methods" && token != "upload_dir" && token != "cgi_extension" && token != "directory_listing")
+		parser_error("Unknown directive '" + token + "' inside server block.", line_num);
+
+	if (semicolon_pos == std::string::npos)
+		parser_error(("Missing ';' after '") + token + "' directive.", line_num);
+
+	value = reminder.substr(0, semicolon_pos);
+	trim_whitespace(value);
+
+	if (value.empty())
+		parser_error(("Empty '") + token + "' directive.", line_num);
+
+	if (token == "directory_listing" && (value != "on" && value != "off"))
+		parser_error("Invalid 'directory_listing' value. Expected 'on' or 'off'.", line_num);
+		
+	directive[token] = value;
 }
 
 /**
@@ -56,14 +70,6 @@ void Location::add_token(std::string token, std::string& value)
 	directive[token] = value;
 }
 
-void	Location::fill_tokens()
-{
-	tokens["allowed_methods"] = &Location::read_allowed_methods;
-	tokens["upload_dir"] = &Location::read_upload_dir;
-	tokens["cgi_extension"] = &Location::read_cgi_extension;
-	tokens["directory_listing"] = &Location::read_directory_listing;
-}
-
 std::string	Location::get_location_path() const
 {
 	return (location_path);
@@ -76,25 +82,9 @@ std::map<std::string, std::string>	Location::get_directive() const
 
 Location::Location(std::string& location_path)
 {
-	fill_tokens();
 	this->location_path = location_path;
 }
 
-void	Location::extract_value(int line_num, std::string &reminder, std::string &value, std::string key)
-{
-	size_t		semicolon_pos = reminder.find(';');
-
-	if (semicolon_pos == std::string::npos)
-		parser_error(("Missing ';' after '") + key + "' directive.", line_num);
-
-	value = reminder.substr(0, semicolon_pos);
-	trim_whitespace(value);
-
-	if (value.empty())
-		parser_error(("Empty '") + key + "' directive.", line_num);
-
-	directive[key] = value;
-}
 
 Location::Location()
 {

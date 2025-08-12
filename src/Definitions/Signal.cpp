@@ -6,12 +6,13 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:31 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/06/25 13:02:00 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:00:57 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Webserv.hpp"
+
 #include "Signal.hpp"
-#include <iostream>
 
 SignalState g_signal_state;
 

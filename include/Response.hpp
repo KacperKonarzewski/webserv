@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:01:25 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 01:42:10 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:58:30 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 # define RESPONSE_HPP
 
 #include "Client.hpp"
-#include <string>
-#include <map>
-#include <iostream>
-#include <sstream>
-#include <cstring>
-#include <unistd.h>
-#include <cstdio>
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <errno.h>
-#include <fstream>
+#include "Webserv.hpp"
 
 class Response
 {

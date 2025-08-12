@@ -6,21 +6,15 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:16:44 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 01:43:49 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:59:40 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "Webserv.hpp"
 
 #include "Client.hpp"
 #include "Server.hpp"
 #include "Request.hpp"
-#include "Webserv.hpp"
-#include <iostream>
-#include <string>
-#include <unistd.h>
-#include <cstdio>
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <cstring>
 
 int Client::accept_client(Server &serv)
 {
