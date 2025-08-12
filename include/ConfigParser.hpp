@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:01 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:58:02 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:05:14 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #ifndef CONFIGPARSER_HPP
 #define CONFIGPARSER_HPP
 
-#include "Config.hpp"
 #include "Webserv.hpp"
+
+#include "Config.hpp"
 
 class ConfigParser
 {

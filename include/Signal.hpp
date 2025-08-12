@@ -6,12 +6,11 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:47:56 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:59:04 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:05:29 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
 #ifndef SIGNAL_HANDLER_HPP
 #define SIGNAL_HANDLER_HPP
 

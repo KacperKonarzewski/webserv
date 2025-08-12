@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 05:11:45 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:57:51 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:05:07 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#include "Location.hpp"
 #include "Webserv.hpp"
+
+#include "Location.hpp"
 
 struct ListenAddress {
 	std::string host;

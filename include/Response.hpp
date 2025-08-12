@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:01:25 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:58:30 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:04:04 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # ifndef RESPONSE_HPP
 # define RESPONSE_HPP
 
-#include "Client.hpp"
 #include "Webserv.hpp"
+
+#include "Client.hpp"
 
 class Response
 {

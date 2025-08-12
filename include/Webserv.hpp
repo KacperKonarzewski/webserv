@@ -6,12 +6,11 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:05 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:59:14 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:05:33 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
 #ifndef WEBSERV_HPP
 #define WEBSERV_HPP
 
