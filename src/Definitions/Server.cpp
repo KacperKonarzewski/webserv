@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:18:58 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:16:07 by mkaszuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ Server::Server(const Config& conf) : conf(conf)
 	if (server_fd == -1)
 		error("socket error.");
 	int opt = 1;
-	
+
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(conf.listen_addresses.back().port);
-	
+
 	setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
 		error("bind error.");
