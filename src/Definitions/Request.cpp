@@ -6,11 +6,13 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:09:30 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/05 03:58:08 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:00:09 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Request.hpp"
+#include "Webserv.hpp"
+
+#include "Request.hpp"
 
 void Request::parse_request()
 {

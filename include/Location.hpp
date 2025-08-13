@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Location.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaszuba <mkaszuba@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 02:36:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/07 11:30:43 by mkaszuba         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:58:09 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #define LOCATION__HPP
 
 #include "Webserv.hpp"
-#include <string>
-#include <map>
 
 class Location
 {
@@ -26,14 +24,6 @@ private:
 	
 	std::map<std::string, void (Location::*)(int, std::string&)>	tokens;
 
-	void    read_upload_dir(int line_num, std::string& reminder);
-	void    read_cgi_extension(int line_num, std::string& reminder);
-	void    read_directory_listing(int line_num, std::string& reminder);
-	void    read_allowed_methods(int line_num, std::string& reminder);
-	void    validate_methods(int line_num, std::string& reminder);
-	void	extract_value(int line_num, std::string &reminder, std::string &value, std::string key);
-
-	void	fill_tokens();
 	__attribute__((noreturn)) void	parser_error(const std::string message, int line_num);
 public:
 	void	add_token(std::string token, std::string& value);

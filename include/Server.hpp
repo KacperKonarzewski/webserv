@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:19:48 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:03:57 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <map>
+#include "Webserv.hpp"
+
 #include "Client.hpp"
 #include "Config.hpp"
 
@@ -26,9 +25,9 @@ class Server
 {
 private:
 	int					server_fd;
+	struct sockaddr_in	address;
 
 	const Config&		conf;
-	struct sockaddr_in	address;
 	socklen_t			addrlen;
 
 	int					epoll_fd;
@@ -47,7 +46,7 @@ public:
 	void		event_loop();
 	void		send_response(Client *client);
 
-	int						get_server();
+	int						&get_server();
 	int						get_epoll_fd();
 	sockaddr_in				&get_address();
 	socklen_t				&get_addrlen();

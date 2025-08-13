@@ -6,23 +6,12 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:39 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 01:33:52 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:01:32 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Webserv.hpp"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <cstdlib>
-#include <cstddef>
-#include <string>
-#include <cstring> 
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <cstdio>
-#include <sys/epoll.h>
-#include <fcntl.h>
+
 /**
  * Prints out a error message and exits the program.
  * 

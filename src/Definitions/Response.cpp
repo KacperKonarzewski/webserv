@@ -6,9 +6,15 @@
 /*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/08/13 19:51:42 by mkaszuba         ###   ########.fr       */
+=======
+/*   Updated: 2025/08/12 21:00:16 by kkonarze         ###   ########.fr       */
+>>>>>>> fb9892c558e35e77d7b5e3c7e62d3b4d00ed05e8
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "Webserv.hpp"
 
 #include "Response.hpp"
 #include "Request.hpp"

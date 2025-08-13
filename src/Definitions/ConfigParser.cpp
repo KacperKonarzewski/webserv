@@ -6,18 +6,13 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:11 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:18:10 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:59:52 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Webserv.hpp"
+
 #include "ConfigParser.hpp"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <cstdlib>
-#include <cstddef>
-#include <string>
 
 /**
  * Prints out a error message for parser and exits the program.
@@ -84,7 +79,7 @@ size_t ConfigParser::parse_size(const std::string& s)
 	}
 }
 
-void ConfigParser::tokenize(const std::string& line)
+void	ConfigParser::tokenize(const std::string& line)
 {
 	size_t		first_space;
 
@@ -93,6 +88,23 @@ void ConfigParser::tokenize(const std::string& line)
 	remainder = (first_space == std::string::npos)? "" : line.substr(first_space);
 	trim_whitespace(token);
 	trim_whitespace(remainder);
+}
+
+void	ConfigParser::validate_methods(int line_num)
+{
+	Location	*last_location = &configs.back().locations.back();
+	std::string	method;
+
+	if (last_location->get_directive().count("allowed_methods") == 0)
+	{
+		last_location->get_directive()["allowed_methods"] = "GET POST DELETE";
+		return ;
+	}
+	std::istringstream methods_stream(last_location->get_directive()["allowed_methods"]);
+
+	while (methods_stream >> method)
+		if (method != "GET" && method != "POST" && method != "DELETE")
+			parser_error("Invalid method '" + method + "' in 'allowed_methods' directive.", line_num);
 }
 
 ConfigParser::~ConfigParser()
@@ -124,9 +136,7 @@ ConfigParser::ConfigParser(const std::string& filepath)
 			continue;
 		tokenize(line);
 
-		if (token == "}" && remainder == "")
-			block_num--;
-		else if (tokens.count(token))
+		if (tokens.count(token))
 			(this->*tokens[token])(line_num);
 		else if (block_num == 2)
 			configs.back().locations.back().find_token(line_num, token, remainder);

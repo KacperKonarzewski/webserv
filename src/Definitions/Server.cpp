@@ -6,28 +6,25 @@
 /*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/08/07 20:16:07 by mkaszuba         ###   ########.fr       */
+=======
+/*   Updated: 2025/08/12 21:00:36 by kkonarze         ###   ########.fr       */
+>>>>>>> fb9892c558e35e77d7b5e3c7e62d3b4d00ed05e8
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+
 #include "Webserv.hpp"
+
+#include "Server.hpp"
 #include "Signal.hpp"
 #include "Request.hpp"
 #include "Response.hpp"
-#include <iostream>
-#include <string>
-#include <cstring>
-#include <unistd.h>
-#include <cstdio>
-#include <arpa/inet.h>
-#include <sys/epoll.h>
-#include <errno.h>
-#include <fstream>
 
 Server::~Server()
 {
-	close(server_fd);
+    close(server_fd);
 }
 
 Server::Server(const Config& conf) : conf(conf)
@@ -96,11 +93,10 @@ void Server::event_loop()
 	}
 }
 
-int Server::get_server()
+int &Server::get_server()
 {
 	return (server_fd);
 };
-
 sockaddr_in &Server::get_address()
 {
 	return (address);

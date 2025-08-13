@@ -6,15 +6,14 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:15 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:13:31 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:01:15 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ConfigParser.hpp"
 #include "Webserv.hpp"
+
+#include "ConfigParser.hpp"
 #include "Location.hpp" 
-#include <sstream>
-#include <iostream>
 
 void ConfigParser::read_listen(int line_num)
 {
@@ -117,6 +116,17 @@ void ConfigParser::read_index(int line_num)
 		configs.back().locations.back().add_token("index", index_value);
 }
 
+void ConfigParser::read_bracket(int line_num)
+{
+	if (remainder != "")
+		parser_error("Closing bracket is not alone.", line_num);
+	block_num--;
+	if (block_num != 1 && block_num != 0)
+		parser_error("Unexpected behaviour.", line_num);
+	if (block_num == 1)
+		validate_methods(line_num);
+}
+
 void ConfigParser::fill_tokens()
 {
 	tokens["listen"] = &ConfigParser::read_listen;
@@ -126,6 +136,7 @@ void ConfigParser::fill_tokens()
 	tokens["location"] = &ConfigParser::read_location;
 	tokens["server"] = &ConfigParser::read_server;
 	tokens["root"] = &ConfigParser::read_root;
+	tokens["}"] = &ConfigParser::read_bracket;
 	tokens["index"] = &ConfigParser::read_index;
 }
 

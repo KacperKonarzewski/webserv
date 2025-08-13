@@ -6,26 +6,15 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:19 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/06 00:19:03 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:01:24 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Webserv.hpp"
+
 #include "Server.hpp"
 #include "Signal.hpp"
 #include "ConfigParser.hpp"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <cstring>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <cstdio>
-#include <cstdlib>
-#include <sys/epoll.h>
-#include <fcntl.h>
-#include <sys/epoll.h>
 
 int main(int argc, char *argv[])
 {
