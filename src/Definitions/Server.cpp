@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 23:43:57 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:45:27 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 #include "Request.hpp"
 #include "Response.hpp"
 #include "ServerManager.hpp"
-
-#include <ifaddrs.h>
-#include <netinet/in.h>
-#include <net/if.h>
 
 Server::~Server()
 {
