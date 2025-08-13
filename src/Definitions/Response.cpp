@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Response.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaszuba <mkaszuba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2025/08/13 19:51:42 by mkaszuba         ###   ########.fr       */
+=======
 /*   Updated: 2025/08/12 21:00:16 by kkonarze         ###   ########.fr       */
+>>>>>>> fb9892c558e35e77d7b5e3c7e62d3b4d00ed05e8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +119,13 @@ Response::Response(Client *client, const Config &conf)
 	std::map<std::string, std::string> tokens = request->get_tokens();
 
 	const Location *location = find_location(tokens["request_uri"], conf);
+	std::string	method = tokens["method"];
+	std::string allowed = location->get_directive()["allow_methods"];
+	if (allowed.empty() && allowed.find(method) == std::string::npos)
+	{
+		create_error(conf.error_pages, 405, "Method Not Allowed");
+		return;
+	}
 	std::string root = location->get_directive()["root"];
 
 	init_mime_types();
