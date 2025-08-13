@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:14:29 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 20:44:31 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:55:10 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	Response::create_response(std::string& target)
     headers << "HTTP/1.1 200 OK\r\n"
             << "Content-Type: " << get_mime_type(target) << "\r\n"
             << "Content-Length: " << html.size() << "\r\n"
-            << "Connection: close\r\n\r\n"
+            << "Connection: keep-alive\r\n\r\n"
             << html;
 
 	index.close();
@@ -115,13 +115,13 @@ Response::Response(Client *client, const Config &conf)
 	std::map<std::string, std::string> tokens = request->get_tokens();
 
 	const Location *location = find_location(tokens["request_uri"], conf);
-	std::string	method = tokens["method"];
-	std::string allowed = location->get_directive()["allow_methods"];
-	if (allowed.empty() && allowed.find(method) == std::string::npos)
-	{
-		create_error(conf.error_pages, 405, "Method Not Allowed");
-		return;
-	}
+	//std::string	method = tokens["method"];
+	//std::string allowed = location->get_directive()["allow_methods"];
+	//if (allowed.empty() && allowed.find(method) == std::string::npos)
+	//{
+	//	create_error(conf.error_pages, 405, "Method Not Allowed");
+	//	return;
+	//}
 	std::string root = location->get_directive()["root"];
 
 	init_mime_types();

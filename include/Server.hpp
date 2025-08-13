@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 01:45:54 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 20:34:32 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:04:32 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ private:
 
 public:
 	~Server();
-	Server(const Config& conf);
+	Server(const Config& conf, int i);
 	Server(Server& serv);
 
 	void		init_epoll();
@@ -42,6 +42,7 @@ public:
 	void		send_response(Client *client);
 
 	int						&get_server();
+	const Config			&get_conf()	const;
 	sockaddr_in				&get_address();
 	socklen_t				&get_addrlen();
 };

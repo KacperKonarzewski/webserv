@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:13:03 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 20:35:23 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:12:51 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ private:
 	int			blocking_flag;
 	Request		*request;
 public:
-	void			read_request();
+	bool			read_request();
 	int				get_client_fd();
 	int				get_blocking_flag();
 
 	Request			*get_request();
+	Server			*get_server();
+
+	void			set_server(Server *serv);
 
 	Client(Server *serv, EpollState &epoll_state);
 	~Client();

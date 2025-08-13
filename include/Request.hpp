@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 20:58:34 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 21:04:45 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:09:47 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ class Request
 		void parse_body(std::string& line);
 	public:
 		Request();
-		Request(int client_fd);
 		~Request();
 
 		std::map<std::string, std::string>	get_tokens();
-		void parse_request();
+
+		bool	read_request(int client_fd);
+		void	parse_request();
 };
 
 #endif

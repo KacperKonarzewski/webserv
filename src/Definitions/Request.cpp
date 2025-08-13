@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:09:30 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 21:00:09 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:09:49 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void Request::parse_request()
 		parse_body(tokens["data"]);
 }
 
+bool	Request::read_request(int client_fd)
+{
+	std::memset(buffer, 0, sizeof(buffer));
+	if (recv(client_fd, buffer, sizeof(buffer) - 1, 0) <= 0)
+		return (false);
+	return (true);
+}
+
 Request::Request()
 {
 
@@ -44,12 +52,6 @@ Request::Request()
 std::map<std::string, std::string>	Request::get_tokens()
 {
 	return (tokens);
-}
-
-Request::Request(int client_fd)
-{
-	std::memset(buffer, 0, sizeof(buffer));
-	read(client_fd, buffer, sizeof(buffer) - 1);
 }
 
 Request::~Request() 

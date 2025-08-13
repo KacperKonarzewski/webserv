@@ -15,7 +15,7 @@ CYAN        = \033[0;96m
 SRC_DIR     = ./src/
 OBJ_DIR     = ./obj/
 SRC_FILES   =	Utils.cpp Definitions/Location.cpp Definitions/Request.cpp Definitions/ConfigParser.cpp Definitions/Server.cpp \
-				Definitions/Client.cpp Definitions/Signal.cpp Definitions/Response.cpp ConfigTokens.cpp main.cpp 
+				Definitions/Client.cpp Definitions/Signal.cpp Definitions/ServerManager.cpp Definitions/Response.cpp ConfigTokens.cpp main.cpp 
 SRC         = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ         = $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 

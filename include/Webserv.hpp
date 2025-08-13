@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:48:05 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 21:05:33 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:09:00 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include <errno.h>
 #include <cstddef>
 #include <cstdlib>
+#include <algorithm>
 #include <fcntl.h>
 
 // Utils.cpp
