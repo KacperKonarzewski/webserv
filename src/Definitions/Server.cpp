@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 21:00:36 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:13:01 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "Signal.hpp"
 #include "Request.hpp"
 #include "Response.hpp"
+#include "ServerManager.hpp"
 
 Server::~Server()
 {
@@ -43,18 +44,6 @@ Server::Server(const Config& conf) : conf(conf)
 	std::cout << "Serwer działa na http://localhost:" << conf.listen_addresses.back().port << std::endl;
 }
 
-void Server::init_epoll()
-{
-	epoll_fd = epoll_create1(0);
-	if (epoll_fd == -1)
-		return error("epoll_create error.");
-
-	info.events = EPOLLIN;
-	info.data.fd = server_fd;
-	if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, server_fd, &info) == -1)
-		return error("epoll_ctl error.");
-}
-
 void Server::send_response(Client *client)
 {
 	Response response(client, conf);
@@ -64,29 +53,15 @@ void Server::send_response(Client *client)
 	epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, client->get_client_fd(), NULL);
 }
 
-void Server::event_loop()
+Client	*Server::accept_client(EpollState &epoll_state)
 {
-	Client *client;
-
-	while (g_signal_state.sigint == 0 && g_signal_state.sigterm == 0)
-	{
-		num_of_fds = epoll_wait(epoll_fd, events, 10, -1);
-		if (num_of_fds == -1 && errno != EINTR)
-			return error("epoll_wait error.");
-		for (int x = 0; x < num_of_fds; x++)
-		{
-			if (events[x].data.fd == server_fd)
-				Client::accept_client(*this);
-			else
-			{
-				client = Client::find_client(*this, events[x].data.fd);
-				if (client == NULL)
-					continue ;
-				client->read_request();
-				send_response(client);
-			}
-		}
-	}
+	Client *client = new Client(*this);
+	
+	if (client->get_client_fd() < 0)
+		return (NULL);
+	if (client->get_blocking_flag())
+		return (NULL);
+	return (client);
 }
 
 int &Server::get_server()
@@ -102,26 +77,6 @@ socklen_t &Server::get_addrlen()
 {
 	return (addrlen);
 };
-
-epoll_event	&Server::get_info()
-{
-	return (info);
-}
-
-epoll_event	*Server::get_events()
-{
-	return (events);
-}
-
-int	Server::get_epoll_fd()
-{
-	return (epoll_fd);
-}
-
-std::map<int, Client> &Server::get_clients()
-{
-	return (clients);
-}
 
 Server::Server(Server& serv) : conf(serv.conf)
 {

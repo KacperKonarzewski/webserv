@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:16:44 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/12 20:59:40 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:38:07 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,6 @@
 #include "Server.hpp"
 #include "Request.hpp"
 
-int Client::accept_client(Server &serv)
-{
-	Client client(serv);
-	std::map<int, Client> &clients = serv.get_clients();
-	
-	if (client.get_client_fd() < 0)
-		return (-1);
-	if (client.get_blocking_flag())
-		return (-1);
-	clients.insert(std::make_pair(client.get_client_fd(), client));
-	return (0);
-}
-
-Client *Client::find_client(Server &serv, int event_fd)
-{
-	std::map<int, Client> &clients = serv.get_clients();
-	std::map<int, Client>::iterator it = clients.find(event_fd);
-
-	if (it == clients.end())
-		return (NULL);
-	return &(it->second);
-}
 
 void Client::read_request()
 {
@@ -62,12 +40,11 @@ Request	*Client::get_request()
 	return (request);
 }
 
-Client::Client(Server &serv)
+Client::Client(Server *serv, EpollState &epoll_state)
 {
-	epoll_event	info;
-
+	server = serv;
 	request = NULL;
-	client_fd = accept(serv.get_server(), NULL, NULL);
+	client_fd = accept(server->get_server(), NULL, NULL);
 	if (client_fd < 0) 
 	{
 		perror("accept");
@@ -80,10 +57,9 @@ Client::Client(Server &serv)
 		return ;
 	}
 	blocking_flag = 0;
-	info = serv.get_info();
-	info.events = EPOLLIN | EPOLLET;
-	info.data.fd = client_fd;
-	epoll_ctl(serv.get_epoll_fd(), EPOLL_CTL_ADD, client_fd, &info);
+	epoll_state.info.events = EPOLLIN | EPOLLET;
+	epoll_state.info.data.fd = client_fd;
+	epoll_ctl(epoll_state.epoll_fd, EPOLL_CTL_ADD, client_fd, &epoll_state.info);
 }
 
 Client::~Client()

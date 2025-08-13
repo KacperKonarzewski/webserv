@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ServerManager.hpp                                  :+:      :+:    :+:   */
+/*   EpollState.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 20:49:24 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 20:19:14 by kkonarze         ###   ########.fr       */
+/*   Created: 2025/08/13 19:09:40 by kkonarze          #+#    #+#             */
+/*   Updated: 2025/08/13 19:10:59 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef SERVERMANAGER_HPP
-#define SERVERMANAGER_HPP
+#ifndef EPOLLSTATE_HPP
+#define EPOLLSTATE_HPP
 
 #include "Webserv.hpp"
 
-#include "Server.hpp"
-#include "EpollState.hpp"
-
-class ServerManager
+struct EpollState
 {
-private:
-	std::map<int, Server*>	servers;
-	std::map<int, Client*>	clients;
-
-	EpollState			epoll_state;
-
-	void				init_epoll();
-	Client				*find_client(int event_fd);
-public:
-	void		event_loop();
-
-	EpollState	&get_epoll_state();
-	
-	ServerManager();
-	~ServerManager();
+	int						epoll_fd;
+	int						num_of_fds;
+	struct epoll_event		info;
+	struct epoll_event		events[10];
 };
-
-
 
 #endif
