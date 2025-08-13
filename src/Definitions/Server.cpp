@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 00:48:40 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/08/13 23:17:20 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:43:57 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #include "Request.hpp"
 #include "Response.hpp"
 #include "ServerManager.hpp"
+
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <net/if.h>
 
 Server::~Server()
 {
@@ -43,7 +47,7 @@ Server::Server(const Config& conf, int i) : conf(conf)
 	if (listen(server_fd, 10) < 0)
 		error("listen error.");
 	addrlen = sizeof(address);
-	std::cout << "Serwer działa na http://localhost:" << conf.listen_addresses[i].port << std::endl;
+	std::cout << "Serwer działa na http://" << conf.listen_addresses[i].host << ":" << conf.listen_addresses[i].port << std::endl;
 }
 
 void Server::send_response(Client *client)
